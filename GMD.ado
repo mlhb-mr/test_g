@@ -38,7 +38,7 @@ program define GMD
     }
     
     * Display package information
-    display as text "Global Macro Data by Müller et. al (2025)xx"
+    display as text "Global Macro Data by Müller et. al (2025)dfas"
     display as text "Version: `current_version'"
     display as text "Website: https://www.globalmacrodata.com/"
     display as text ""
@@ -56,12 +56,12 @@ program define GMD
     if "`version'" == "current" {
         local data_path "`base_dir'GMD.dta"
         local download_file "GMD.dta"
-        local download_url "https://github.com/mlhb-mr/test/raw/refs/heads/main/`download_file'"
+        local download_url "https://github.com/mlhb-mr/test_g/raw/refs/heads/main/`download_file'"
     }
     else {
         local data_path "`vintages_dir'GMD_`version'.dta"
         local download_file "GMD_`version'.dta"
-        local download_url "https://github.com/mlhb-mr/test/raw/refs/heads/main/vintages/`download_file'"
+        local download_url "https://github.com/mlhb-mr/test_g/raw/refs/heads/main/vintages/`download_file'"
     }
     
     * Check if dataset exists, if not, try to download it
