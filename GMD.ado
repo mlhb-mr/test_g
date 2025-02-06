@@ -9,29 +9,29 @@ program define GMD
     local base_url "http://www.globalmacrodata.com"
     
     * Display package information
-    display as text "Global Macro Database by Müller et. al (2025)vers"
+    display as text "Global Macro Database by Müller et. al (2025)vers12"
     display as text "Website: https://www.globalmacrodata.com/"
     display as text ""
-
-   
-
     
-      * Process version option
+    * Process version option
     if "`version'" != "" {
-    * First check if it's current
+    * Handle current version explicitly
     if lower("`version'") == "current" {
         local data_url "`base_url'/GMD.dta"
     }
     else {
-        * Separate validation step
-        local valid_format = regexm("`version'", "^20[0-9]{2}_(0[1-4])$")
+        * Parse the year and quarter
+        local year = substr("`version'", 1, 4)
+        local quarter = substr("`version'", 6, 2)
         
-        if `valid_format' == 0 {
+        * Validate year and quarter
+        if !inrange(`year', 2020, 2050) | !inlist("`quarter'", "01", "04", "07", "10") {
             display as error "Error: Version must be either 'current' or in YYYY_QQ format (e.g., 2024_04)"
+            display as error "Quarter must be 03, 06, 09, or 12 (Except for the first release which is 2025_01)"
             exit 498
         }
         
-        * If we get here, format is valid, so set URL
+        * If we get here, format is valid
         local data_url "`base_url'/GMD_`version'.dta"
     }
 }
