@@ -9,7 +9,7 @@ program define GMD
     local base_url "http://www.globalmacrodata.com"
     
     * Display package information
-    display as text "Global Macro Database by Müller et. al (2025)fin"
+    display as text "Global Macro Database by Müller et. al (2025)finalllll"
     display as text "Website: https://www.globalmacrodata.com/"
     display as text ""
     
@@ -76,7 +76,7 @@ program define GMD
     * Load data based on whether variables are specified
     capture noisily {
         if "`anything'" == "" {
-            use "`data_url'"
+            qui use "`data_url'"
         }
         else {
             use ISO3 year countryname `anything' using "`data_url'"
