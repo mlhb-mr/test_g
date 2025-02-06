@@ -9,7 +9,7 @@ program define GMD
     local base_url "http://www.globalmacrodata.com"
     
     * Display package information
-    display as text "Global Macro Database by Müller et. al (2025)s"
+    display as text "Global Macro Database by Müller et. al (2025)vers"
     display as text "Website: https://www.globalmacrodata.com/"
     display as text ""
 
@@ -18,20 +18,23 @@ program define GMD
     
       * Process version option
     if "`version'" != "" {
-        * Handle current version explicitly
-        if lower("`version'") == "current" {
-            local data_url "`base_url'/GMD.dta"
-        }
-        * Validate version format (YYYY_QQ)
-        else if !regexm("`version'", "^20[0-9]{2}_(0[1-4])$") {
+    * First check if it's current
+    if lower("`version'") == "current" {
+        local data_url "`base_url'/GMD.dta"
+    }
+    else {
+        * Separate validation step
+        local valid_format = regexm("`version'", "^20[0-9]{2}_(0[1-4])$")
+        
+        if `valid_format' == 0 {
             display as error "Error: Version must be either 'current' or in YYYY_QQ format (e.g., 2024_04)"
             exit 498
         }
-        else {
-            * Set URL for specific version
-            local data_url "`base_url'/GMD_`version'.dta"
-        }
+        
+        * If we get here, format is valid, so set URL
+        local data_url "`base_url'/GMD_`version'.dta"
     }
+}
     else {
         * Default to current base URL
         local data_url "`base_url'/GMD.dta"
