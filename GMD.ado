@@ -9,7 +9,7 @@ program define GMD
     local base_url "http://www.globalmacrodata.com"
     
     * Display package information
-    display as text "Global Macro Database by Müller et. al (2025)vers12"
+    display as text "Global Macro Database by Müller et. al (2025)fin"
     display as text "Website: https://www.globalmacrodata.com/"
     display as text ""
     
@@ -25,9 +25,9 @@ program define GMD
         local quarter = substr("`version'", 6, 2)
         
         * Validate year and quarter
-        if !inrange(`year', 2020, 2050) | !inlist("`quarter'", "01", "04", "07", "10") {
+        if !inrange(`year', 2020, 2050) | !inlist("`quarter'", "01", "03", "06", "09", "12") {
             display as error "Error: Version must be either 'current' or in YYYY_QQ format (e.g., 2024_04)"
-            display as error "Quarter must be 03, 06, 09, or 12 (Except for the first release which is 2025_01)"
+            display as text _newline "Quarter must be 03, 06, 09, or 12 (Except for the first release which is 2025_01)"
             exit 498
         }
         
@@ -88,7 +88,7 @@ program define GMD
             display as error "Error: Version `version' not found"
         }
         else {
-            display as error "Error: Unable to download current version"
+            display as error "Error: Unable to download the requested version"
         }
         display as text _newline "Please visit {browse https://www.globalmacrodata.com/data.html} to see available version dates"
         exit _rc
