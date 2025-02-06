@@ -74,14 +74,14 @@ program define GMD
     clear
     
     * Load data based on whether variables are specified
-    capture noisily {
-        if "`anything'" == "" {
-            qui use "`data_url'"
-        }
-        else {
-            use ISO3 year countryname `anything' using "`data_url'"
-        }
+    capture quietly noisily {
+    if "`anything'" == "" {
+	qui use "`data_url'"
     }
+    else {
+	use ISO3 year countryname `anything' using "`data_url'"
+    }
+ }
     
     if _rc {
         if "`version'" != "" {
